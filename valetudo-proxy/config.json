@@ -1,0 +1,36 @@
+{
+    "name": "Valetudo Proxy",
+    "version": "0.1.0",
+    "slug": "valetudo-proxy",
+    "description": "Proxy for connecting to Valetudo directly in Home Assistant",
+    "url": "https://github.com/klaernie/hassio-addons/tree/main/valetudo-proxy",
+    "arch": [
+      "aarch64",
+      "amd64",
+      "armhf",
+      "armv7",
+      "i386"
+    ],
+    "boot": "auto",
+    "init": true,
+    "true": true,
+    "ingress": true,
+    "timeout": 30,
+    "panel_icon": "mdi:robot-vacuum",
+    "map": [
+      "config:ro"
+    ],
+    "ports": {
+      "8099/tcp": null
+    },
+    "ports_description": {
+      "8099/tcp": "Frontend tcp-listen port"
+    },
+    "options": {
+      "server": null
+    },
+    "schema": {
+      "server": "url"
+    },
+    "image": "ghcr.io/klaernie/valetudo-proxy"
+}
