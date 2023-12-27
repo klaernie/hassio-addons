@@ -45,4 +45,4 @@ jobs:
             -v /home/runner/.docker:/root/.docker \
             -v /run/docker.sock:/run/docker.sock:rw \
             -v $(pwd)/${{ matrix.addon }}:/data homeassistant/amd64-builder --${{ matrix.arch }} -t /data \
-            --no-cache --docker-hub ghcr.io
+            --no-cache --docker-hub ghcr.io/${{ github.repository_owner }}
