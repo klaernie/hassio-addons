@@ -32,5 +32,5 @@
     "schema": {
       "server": "url"
     },
-    "image": "ghcr.io/klaernie/valetudo-proxy"
+    "image": "ghcr.io/klaernie/valetudo-proxy-{arch}"
 }
