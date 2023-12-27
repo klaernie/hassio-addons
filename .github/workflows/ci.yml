@@ -10,7 +10,6 @@ jobs:
   variables:
     runs-on: ubuntu-latest
     outputs:
-      ARCH_LIST: ${{ env.ARCH_LIST }}
       ADDON_LIST: ${{ env.ADDON_LIST }}
     steps:
     - uses: actions/checkout@v4
@@ -19,13 +18,6 @@ jobs:
       run: |
         echo "ADDON_LIST=['valetudo-proxy']" >> $GITHUB_ENV
 
-    - name: Determine arch
-      id: determine_arch
-      run: |
-        ARCH_LIST=$(jq -r -c '.arch' ./${{ fromJSON(env.ADDON_LIST)[0] }}/config.json)
-        echo "Found the following arches: $ARCH_LIST"
-        echo "ARCH_LIST=$ARCH_LIST" >> $GITHUB_ENV
-
   build:
     runs-on: ubuntu-latest
     needs: variables
@@ -33,7 +25,6 @@ jobs:
       packages: write
     strategy:
       matrix:
-        arch: ${{fromJSON(needs.variables.outputs.ARCH_LIST)}}
         addon: ${{fromJSON(needs.variables.outputs.ADDON_LIST)}}
     steps:
     - uses: actions/checkout@v4
@@ -46,5 +37,5 @@ jobs:
         docker run --rm --privileged \
             -v /home/runner/.docker:/root/.docker \
             -v /run/docker.sock:/run/docker.sock:rw \
-            -v $(pwd)/${{ matrix.addon }}:/data homeassistant/amd64-builder --${{ matrix.arch }} -t /data \
+            -v $(pwd)/${{ matrix.addon }}:/data homeassistant/amd64-builder --all -t /data \
             --no-cache --docker-hub ghcr.io/${{ github.repository_owner }}
